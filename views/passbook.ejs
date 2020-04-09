@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <title>Passbook</title>
+    <link rel="icon" type="image" href="/img/budget.png">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-inverse" style="margin-bottom: 0px; border-radius: 0;">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="/budget/<%= userId %>/add">ADD</a></li>
+                    <li class="active"><a href="/passbook/<%= userId %>/passbook">Passbook</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="top">
+            <div class="budget">
+                <div class="budget__title">
+                    Available Budget:
+                </div>
+
+                <div class="budget__value"><% if(total>=0) {%>
+                    +<%= (total).toFixed(2) %><%} else { %><%= (total).toFixed(2) %><% } %> </div>
+
+                <div class="budget__income clearfix">
+                    <div class="budget__income--text">Income</div>
+                    <div class="right">
+                        <div class="budget__income--value">+<%= (income).toFixed(2) %></div>
+                        <div class="budget__income--percentage">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="budget__expenses clearfix">
+                    <div class="budget__expenses--text">Expenses</div>
+                    <div class="right clearfix">
+                        <div class="budget__expenses--value">-<%= (expense).toFixed(2) %></div>
+                        <div class="budget__expenses--percentage"><% if (income > 0) { %><%= Math.round((expense/income)*100).toFixed(2) %><% } else { %>0.00<% } %> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="bottom">
+            <div class="container clearfix">
+                <div class="income">
+                    <h2 class="income__title--main">Passbook</h2>
+                    <% for (let b=length; b>=0; b=b-1) {%>
+                            <div class="income__list">
+                                <div class="item clearfix" id="income-0">
+                                    <div class="item__description"><%= budget[b].description %></div>
+                                    <div class="mid"><%= budget[b].date %></div>
+
+                                    <div class="right clearfix">
+                                        <div
+                                            class="<% if(budget[b].type === 'inc') { %>  item__value--inc  <% } else { %> item__value--exp  <% } %> ">
+                                            <% if(budget[b].type === 'inc') { %>
+                                            +<%= parseInt(budget[b].amount).toFixed(2) %>
+                                            <% } else { %>-<%= parseInt(budget[b].amount).toFixed(2) %> <% } %>
+                                        </div>
+                                        <div class="item__delete">
+                                            <form action="/budget/<%= userId %>/delete-item/<%= budget[b].id %>"
+                                                method="post">
+                                                <button class="item__delete--btn" type="submit">
+                                                    <i class="ion-ios-close-outline"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
