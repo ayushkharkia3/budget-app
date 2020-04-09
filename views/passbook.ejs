@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
@@ -49,7 +51,8 @@
                     <div class="budget__expenses--text">Expenses</div>
                     <div class="right clearfix">
                         <div class="budget__expenses--value">-<%= (expense).toFixed(2) %></div>
-                        <div class="budget__expenses--percentage"><% if (income > 0) { %><%= Math.round((expense/income)*100).toFixed(2) %><% } else { %>0.00<% } %> 
+                        <div class="budget__expenses--percentage">
+                            <% if (income > 0) { %><%= Math.round((expense/income)*100).toFixed(2) %><% } else { %>0.00<% } %>
                         </div>
                     </div>
                 </div>
@@ -63,34 +66,33 @@
                 <div class="income">
                     <h2 class="income__title--main">Passbook</h2>
                     <% for (let b=length; b>=0; b=b-1) {%>
-                            <div class="income__list">
-                                <div class="item clearfix" id="income-0">
-                                    <div class="item__description"><%= budget[b].description %></div>
-                                    <div class="mid"><%= budget[b].date %></div>
+                    <div class="income__list">
+                        <div class="item clearfix" id="income-0">
+                            <div class="item__description"><%= budget[b].description %></div>
+                            <div class="mid"><%= budget[b].date %></div>
 
-                                    <div class="right clearfix">
-                                        <div
-                                            class="<% if(budget[b].type === 'inc') { %>  item__value--inc  <% } else { %> item__value--exp  <% } %> ">
-                                            <% if(budget[b].type === 'inc') { %>
-                                            +<%= parseInt(budget[b].amount).toFixed(2) %>
-                                            <% } else { %>-<%= parseInt(budget[b].amount).toFixed(2) %> <% } %>
-                                        </div>
-                                        <div class="item__delete">
-                                            <form action="/budget/<%= userId %>/delete-item/<%= budget[b].id %>"
-                                                method="post">
-                                                <button class="item__delete--btn" type="submit">
-                                                    <i class="ion-ios-close-outline"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
+                            <div class="right clearfix">
+                                <div
+                                    class="<% if(budget[b].type === 'inc') { %>  item__value--inc  <% } else { %> item__value--exp  <% } %> ">
+                                    <% if(budget[b].type === 'inc') { %>
+                                    +<%= parseInt(budget[b].amount).toFixed(2) %>
+                                    <% } else { %>-<%= parseInt(budget[b].amount).toFixed(2) %> <% } %>
                                 </div>
-                                <% } %>
+                                <div class="item__delete">
+                                    <form action="/budget/<%= userId %>/delete-item/<%= budget[b].id %>" method="post">
+                                        <button class="item__delete--btn" type="submit">
+                                            <i class="fa fa-close"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                        <% } %>
                     </div>
-
-
                 </div>
+            </div>
+
+
+        </div>
     </main>
     <script src="app.js"></script>
 </body>
