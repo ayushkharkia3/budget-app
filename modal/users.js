@@ -21,9 +21,6 @@ module.exports = class User {
         this.emailId = emailId;
         this.password = password;
         this.terms = true;
-        this.income = 0;
-        this.expense = 0;
-        this.total = 0;
         this.registeredOn = (new Date()).toString();
     }
 
