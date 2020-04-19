@@ -35,13 +35,21 @@
                     Available Budget:
                 </div>
 
-                <div class="budget__value"><% if(total>=0) {%>
-                    +<%= (total).toFixed(2) %><%} else { %><%= (total).toFixed(2) %><% } %> </div>
+                <div class="budget__value">
+                    <% if(total>=0) {%>
+                        +
+                        <%= (total).toFixed(2) %>
+                            <%} else { %>
+                                <%= (total).toFixed(2) %>
+                                    <% } %>
+                </div>
 
                 <div class="budget__income clearfix">
                     <div class="budget__income--text">Income</div>
                     <div class="right">
-                        <div class="budget__income--value">+<%= (income).toFixed(2) %></div>
+                        <div class="budget__income--value">+
+                            <%= (income).toFixed(2) %>
+                        </div>
                         <div class="budget__income--percentage">&nbsp;</div>
                     </div>
                 </div>
@@ -49,9 +57,14 @@
                 <div class="budget__expenses clearfix">
                     <div class="budget__expenses--text">Expenses</div>
                     <div class="right clearfix">
-                        <div class="budget__expenses--value">-<%= (expense).toFixed(2) %></div>
+                        <div class="budget__expenses--value">-
+                            <%= (expense).toFixed(2) %>
+                        </div>
                         <div class="budget__expenses--percentage">
-                            <% if (income > 0) { %><%= Math.round((expense/income)*100).toFixed(2) %><% } else { %>0.00<% } %>
+                            <% if (income > 0) { %>
+                                <%= Math.round((expense/income)*100).toFixed(2) %>
+                                    <% } else { %>0.00
+                                        <% } %>
                         </div>
                     </div>
                 </div>
@@ -65,28 +78,34 @@
                 <div class="income">
                     <h2 class="income__title--main">Passbook</h2>
                     <% for (let b=length; b>=0; b=b-1) {%>
-                    <div class="income__list">
-                        <div class="item clearfix" id="income-0">
-                            <div class="item__description"><%= budget[b].description %></div>
-                            <div class="mid"><%= budget[b].date %></div>
-
-                            <div class="right clearfix">
-                                <div
-                                    class="<% if(budget[b].type === 'inc') { %>  item__value--inc  <% } else { %> item__value--exp  <% } %> ">
-                                    <% if(budget[b].type === 'inc') { %>
-                                    +<%= parseInt(budget[b].amount).toFixed(2) %>
-                                    <% } else { %>-<%= parseInt(budget[b].amount).toFixed(2) %> <% } %>
+                        <div class="income__list">
+                            <div class="item clearfix" id="income-0">
+                                <div class="item__description">
+                                    <%= budget[b].description %>
                                 </div>
-                                <div class="item__delete">
-                                    <form action="/budget/<%= userId %>/delete-item/<%= budget[b].id %>" method="post">
-                                        <button class="item__delete--btn" type="submit">
+                                <div class="mid">
+                                    <%= budget[b].date %>
+                                </div>
+
+                                <div class="right clearfix">
+                                    <div class="<% if(budget[b].type === 'inc') { %>  item__value--inc  <% } else { %> item__value--exp  <% } %> ">
+                                        <% if(budget[b].type === 'inc') { %>
+                                            +
+                                            <%= parseInt(budget[b].amount).toFixed(2) %>
+                                                <% } else { %>-
+                                                    <%= parseInt(budget[b].amount).toFixed(2) %>
+                                                        <% } %>
+                                    </div>
+                                    <div class="item__delete">
+                                        <form action="/budget/<%= userId %>/delete-item/<%= budget[b].id %>" method="post">
+                                            <button class="item__delete--btn" type="submit">
                                             <i class="fa fa-close"></i></button>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+                            <% } %>
                         </div>
-                        <% } %>
-                    </div>
                 </div>
             </div>
 
