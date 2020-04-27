@@ -20,7 +20,7 @@ exports.postRegistration = (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
-    res.render('login');
+    res.render('login',{notExists : false});
 };
 
 exports.postLogin = (req, res, next) => {
@@ -37,7 +37,7 @@ exports.postLogin = (req, res, next) => {
         if (id) {
             res.redirect(`/budget/${id}/add`);
         } else {
-            res.redirect('/');
+            res.render("login",{notExists:true});
         }
     });
 };

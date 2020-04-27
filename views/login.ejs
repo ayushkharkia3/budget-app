@@ -25,6 +25,9 @@
       </header>
     <main>
         <div class="container">
+          <% if(notExists) {%>
+          <h3 style="color: red; text-align: center;">Invalid username or password!</h3>
+          <% } %>
             <form action="/" class="needs-validation" method="POST" novalidate>
               <div class="form-group">
                 <label for="email">Email Id:</label>
