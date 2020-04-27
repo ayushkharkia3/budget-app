@@ -6,14 +6,14 @@ const db = firebase.database();
 
 
 exports.getRegistration = (req, res, next) => {
-    res.render('register',{Id:Math.random().toString(36).slice(2)});
+    res.render('register');
 };
 
 exports.postRegistration = (req, res, next) => {
-    const newUser = new User(req.body.id,req.body.name, req.body.dob, req.body.phone, req.body.email, req.body.pswd);
+    const newUser = new User(req.body.name, req.body.dob, req.body.phone, req.body.email, req.body.pswd);
     newUser.addUser()
         .then(() => {
-            res.redirect(`/budget/${req.body.id}/add`);
+            res.redirect(`/budget/${newUser.id}/add`);
         }).catch((err) => {
             console.log(err);
         });
