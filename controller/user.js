@@ -6,7 +6,7 @@ const db = firebase.database();
 
 
 exports.getRegistration = (req, res, next) => {
-    res.render('register',{id:Math.random().toString(36).slice(2)});
+    res.render('register',{Id:Math.random().toString(36).slice(2)});
 };
 
 exports.postRegistration = (req, res, next) => {
