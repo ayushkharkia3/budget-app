@@ -6,14 +6,14 @@ const db = firebase.database();
 
 
 exports.getRegistration = (req, res, next) => {
-    res.render('register');
+    res.render('register',{id:Math.random().toString(36).slice(2)});
 };
 
 exports.postRegistration = (req, res, next) => {
-    const newUser = new User(req.body.name, req.body.dob, req.body.phone, req.body.email, req.body.pswd);
+    const newUser = new User(req.body.id,req.body.name, req.body.dob, req.body.phone, req.body.email, req.body.pswd);
     newUser.addUser()
         .then(() => {
-            res.redirect('/');
+            res.redirect(`/budget/${req.body.id}/add`);
         }).catch((err) => {
             console.log(err);
         });
@@ -89,7 +89,6 @@ exports.openPassbook = (req, res, next) => {
 };
 
 exports.deleteItem = (req, res, next) => {
-    //User.deleteBudget(req.params.userId, req.params.budgetId);
     const ref = db.ref(`budgets/${req.params.userId}`);
     ref.once("value", (data) => {
         const allData = data.val();
