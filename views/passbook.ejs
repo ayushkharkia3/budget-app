@@ -62,9 +62,9 @@
                         </div>
                         <div class="budget__expenses--percentage">
                             <% if (income > 0) { %>
-                                <%= Math.round((expense/income)*100).toFixed(2) %>
+                                <%= Math.round((expense/income)*100) %>
                                     <% } else { %>0.00
-                                        <% } %>
+                                        <% } %>%
                         </div>
                     </div>
                 </div>
