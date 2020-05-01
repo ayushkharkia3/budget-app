@@ -109,8 +109,13 @@ exports.openPassbook = (req, res, next) => {
 
 exports.deleteItem = (req, res, next) => {
     const ref = db.ref(`budgets/${req.params.userId}`);
-    ref.once("value").then((data) => {
+    ref.once("value")
+        .then((data) => {
             const allData = data.val();
+            const ref2 = db.ref(`deleted/${req.params.userId}`);
+            ref2.push(allData[req.params.budgetId])
+        })
+        .then(() => {
             db.ref(`budgets/${req.params.userId}/${req.params.budgetId}`).remove()
         })
         .then(() => {
